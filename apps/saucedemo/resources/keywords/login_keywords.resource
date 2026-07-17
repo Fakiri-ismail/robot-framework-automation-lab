@@ -7,7 +7,6 @@ resource    ../variables/urls.resource
 *** Keywords ***
 Open Login Page
     [Documentation]    Opens the login page of the application.
-    [Arguments]        ${BROWSER}
     Open Browser    ${LOGIN_URL}    ${BROWSER}
     Maximize Browser Window
 
