@@ -3,7 +3,7 @@
 library    SeleniumLibrary
 resource    ../../resources/keywords/login_keywords.resource
 
-Test Setup    Open Login Page    chrome
+Test Setup    Open Login Page    headlesschrome
 Test Teardown    Close Browser
 
 
