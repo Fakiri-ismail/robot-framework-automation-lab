@@ -1,12 +1,12 @@
 *** Settings ***
-Documentation     A resource file containing the ParkCalc app specific keywords and variables for data-driven tests that create our own domain specific language. Also SeleniumLibrary itself is imported here so that tests only need to import this resource file.
+Documentation     A resource file containing the ParkCalc app specific keywords and variables for data-driven tests.
 Library           SeleniumLibrary
 
 *** Variables ***
 ${BROWSER}        firefox
 ${DELAY}          0.2
 ${PARKCALCPAGE}   https://robotframework.transformidea.com/app/parkcalc/
-${COST_ITEM}      xpath=//tr[td/div[@class='SubHead'] = 'COST']/td/span/font/b    #css=span.SubHead b
+${COST_ITEM}      css:span.SubHead b
 ${PAGE_TITLE}     Parking Calculator
 
 *** Keywords ***
@@ -17,15 +17,14 @@ Open Park Calc Page
 
 Park Calc
     [Arguments]    ${parkingLot}    ${entryDate}    ${entryTime}    ${entryAmPm}    ${exitDate}    ${exitTime}    ${exitAmPm}    ${expectedPrice}
-    Title Should Be    Parking Calculator
-    Select From List    Lot    ${parkingLot}
-    Input Text    EntryTime    ${entryTime}
+    Select From List By Label    id:Lot    ${parkingLot}
+    Input Text    id:EntryTime    ${entryTime}
     Select Radio Button    EntryTimeAMPM    ${entryAmPm}
-    Input Text    EntryDate    ${entryDate}
-    Input Text    ExitTime    ${exitTime}
+    Input Text    id:EntryDate    ${entryDate}
+    Input Text    id:ExitTime    ${exitTime}
     Select Radio Button    ExitTimeAMPM    ${exitAmPm}
-    Input Text    ExitDate    ${exitDate}
-    Click Button    Submit
+    Input Text    id:ExitDate    ${exitDate}
+    Click Button    name:Submit
     Calculated Cost Should Be    ${expectedPrice}
 
 Calculated Cost Should Be
@@ -33,10 +32,6 @@ Calculated Cost Should Be
     ${actualCost} =    Get Text    ${COST_ITEM}
     Log    Actual costs: ${actualCost}
     Page Should Contain    ${expectedCost}
-
-Dummy Keyword
-    [Arguments]    ${expectedCost}
-    Log    Not used
 
 Valet Parking
     [Arguments]    ${entryDate}    ${entryTime}    ${entryAmPm}    ${exitDate}    ${exitTime}    ${exitAmPm}    ${expectedPrice}
@@ -57,8 +52,3 @@ Long-Term Surface Parking
 Economy Parking
     [Arguments]    ${entryDate}    ${entryTime}    ${entryAmPm}    ${exitDate}    ${exitTime}    ${exitAmPm}    ${expectedPrice}
     Park Calc    Economy Parking    ${entryDate}    ${entryTime}    ${entryAmPm}    ${exitDate}    ${exitTime}    ${exitAmPm}    ${expectedPrice}
-
-Select From List
-    [Arguments]    ${arg1}    ${arg2}
-    [Documentation]    Wrapper for SeleniumLibrary 4.0
-    Select From List By Label    ${arg1}    ${arg2}

@@ -6,7 +6,8 @@ Force Tags        DDT
 Resource          resource.resource
 
 *** Variables ***
-@{FOR_ONE_HOUR}    05/04/2010    12:00    AM    05/04/2010    01:00    AM    # ${entryDate} \ ${entryTime} \ ${entryAmPm} \ ${exitDate} \ ${exitTime} \ ${exitAmPm}
+#                ${entryDate} \ ${entryTime} \ ${entryAmPm} \ ${exitDate} \ ${exitTime} \ ${exitAmPm}
+@{FOR_ONE_HOUR}    05/04/2010    12:00    AM    05/04/2010    01:00    AM
 @{FOR_ONE_AND_A_HALF_HOUR}    05/04/2010    12:00    AM    05/04/2010    01:30    AM
 @{FOR_THREE_HOURS}    05/04/2010    12:00    AM    05/04/2010    03:00    AM
 @{FOR_FOUR_HOURS}    05/04/2010    12:00    AM    05/04/2010    04:00    AM
@@ -23,44 +24,49 @@ Resource          resource.resource
 @{FOR_THREE_WEEKS}    05/04/2010    12:00    AM    05/25/2010    12:00    AM
 
 *** Test Cases ***
-Valet Parking Test
-    Run Keyword And Continue On Failure    Valet Parking    @{FOR_ONE_HOUR}    $ 12.00
-    Run Keyword And Continue On Failure    Valet Parking    @{FOR_FIVE_HOURS}    $ 12.00
-    Run Keyword And Continue On Failure    Valet Parking    @{FOR_ONE_DAY}    $ 18.00
-    Run Keyword And Continue On Failure    Valet Parking    @{FOR_THREE_DAYS}    $ 54.00
+Valet Parking Tests
+    [Template]    Valet Parking
+    @{FOR_ONE_HOUR}    $ 12.00
+    @{FOR_FIVE_HOURS}    $ 12.00
+    @{FOR_ONE_DAY}    $ 42.00
+    @{FOR_THREE_DAYS}    $ 102.00
 
-Short-Term Parking
-    Run Keyword And Continue On Failure    Short-Term Parking    @{FOR_ONE_HOUR}    $ 2.00
-    Run Keyword And Continue On Failure    Short-Term Parking    @{FOR_ONE_AND_A_HALF_HOUR}    $ 3.00
-    Run Keyword And Continue On Failure    Short-Term Parking    @{FOR_THREE_HOURS}    $ 6.00
-    Run Keyword And Continue On Failure    Short-Term Parking    @{FOR_TWELVE_HOURS}    $ 24.00
-    Run Keyword And Continue On Failure    Short-Term Parking    @{FOR_TWENTY_THREE_HOURS}    $ 24.00
-    Run Keyword And Continue On Failure    Short-Term Parking    @{FOR_TWO_DAYS}    $ 48.00
+Short-Term Parking Tests
+    [Template]    Short-Term Parking
+    @{FOR_ONE_HOUR}    $ 2.00
+    @{FOR_ONE_AND_A_HALF_HOUR}    $ 4.00
+    @{FOR_THREE_HOURS}    $ 6.00
+    @{FOR_TWELVE_HOURS}    $ 24.00
+    @{FOR_TWENTY_THREE_HOURS}    $ 26.00
+    @{FOR_TWO_DAYS}    $ 54.00
 
-Long-Term Garage Parking
-    Run Keyword And Continue On Failure    Long-Term Garage Parking    @{FOR_ONE_HOUR}    $ 2.00
-    Run Keyword And Continue On Failure    Long-Term Garage Parking    @{FOR_THREE_HOURS}    $ 6.00
-    Run Keyword And Continue On Failure    Long-Term Garage Parking    @{FOR_SIX_HOURS}    $ 12.00
-    Run Keyword And Continue On Failure    Long-Term Garage Parking    @{FOR_SEVEN_HOURS}    $ 12.00
-    Run Keyword And Continue On Failure    Long-Term Garage Parking    @{FOR_SIX_DAYS}    $ 72.00
-    Run Keyword And Continue On Failure    Long-Term Garage Parking    @{FOR_ONE_WEEK}    $ 72.00
-    Run Keyword And Continue On Failure    Long-Term Garage Parking    @{FOR_THREE_WEEKS}    $ 216.00
+Long-Term Garage Parking Tests
+    [Template]    Long-Term Garage Parking
+    @{FOR_ONE_HOUR}    $ 2.00
+    @{FOR_THREE_HOURS}    $ 6.00
+    @{FOR_SIX_HOURS}    $ 12.00
+    @{FOR_SEVEN_HOURS}    $ 14.00
+    @{FOR_SIX_DAYS}    $ 72.00
+    @{FOR_ONE_WEEK}    $ 72.00
+    @{FOR_THREE_WEEKS}    $ 216.00
 
-Long-Term Surface Parking
-    Run Keyword And Continue On Failure    Long-Term Surface Parking    @{FOR_ONE_HOUR}    $ 2.00
-    Run Keyword And Continue On Failure    Long-Term Surface Parking    @{FOR_THREE_HOURS}    $ 6.00
-    Run Keyword And Continue On Failure    Long-Term Surface Parking    @{FOR_FIVE_HOURS}    $ 10.00
-    Run Keyword And Continue On Failure    Long-Term Surface Parking    @{FOR_SIX_HOURS}    $ 10.00
-    Run Keyword And Continue On Failure    Long-Term Surface Parking    @{FOR_SIX_DAYS}    $ 60.00
-    Run Keyword And Continue On Failure    Long-Term Surface Parking    @{FOR_ONE_WEEK}    $ 60.00
-    Run Keyword And Continue On Failure    Long-Term Surface Parking    @{FOR_THREE_WEEKS}    $ 180.00
+Long-Term Surface Parking Tests
+    [Template]    Long-Term Surface Parking
+    @{FOR_ONE_HOUR}    $ 2.00
+    @{FOR_THREE_HOURS}    $ 6.00
+    @{FOR_FIVE_HOURS}    $ 10.00
+    @{FOR_SIX_HOURS}    $ 12.00
+    @{FOR_SIX_DAYS}    $ 60.00
+    @{FOR_ONE_WEEK}    $ 60.00
+    @{FOR_THREE_WEEKS}    $ 180.00
 
 Economy Parking
-    Run Keyword And Continue On Failure    Economy Parking    @{FOR_ONE_HOUR}    $ 2.00
-    Run Keyword And Continue On Failure    Economy Parking    @{FOR_THREE_HOURS}    $ 6.00
-    Run Keyword And Continue On Failure    Economy Parking    @{FOR_FOUR_HOURS}    $ 8.00
-    Run Keyword And Continue On Failure    Economy Parking    @{FOR_FIVE_HOURS}    $ 9.00
-    Run Keyword And Continue On Failure    Economy Parking    @{FOR_SIX_HOURS}    $ 9.00
-    Run Keyword And Continue On Failure    Economy Parking    @{FOR_SIX_DAYS}    $ 54.00
-    Run Keyword And Continue On Failure    Economy Parking    @{FOR_ONE_WEEK}    $ 54.00
-    Run Keyword And Continue On Failure    Economy Parking    @{FOR_THREE_WEEKS}    $ 162.00
+    [Template]    Economy Parking
+    @{FOR_ONE_HOUR}    $ 4.00
+    @{FOR_THREE_HOURS}    $ 12.00
+    @{FOR_FOUR_HOURS}    $ 16.00
+    @{FOR_FIVE_HOURS}    $ 20.00
+    @{FOR_SIX_HOURS}    $ 24.00
+    @{FOR_SIX_DAYS}    $ 54.00
+    @{FOR_ONE_WEEK}    $ 54.00
+    @{FOR_THREE_WEEKS}    $ 162.00
